@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+  <script src="box-component.js"></script>
+  <script src="./aframe-extras.js"></script>
+  <script src="./buzz-component.js"></script>
+  <script src="collision-detector.js"></script>
+  <style>
+    a-scene, video {
+      height:100%;
+      width:100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    #button-controls {
+      z-index: 1; 
+      position: absolute; 
+    }
+
+    video
+    {
+        transform: rotateY(180deg);
+        -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+        -moz-transform:rotateY(180deg); /* Firefox */
+    }
+  </style>
+</head>
+
+<body>
+  <video autoplay></video>
+  <a-scene>
+    <a-camera look-controls-enabled="false" wasd-controls-enabled="false" position="0 1.5 0"></a-camera>
+    <a-entity 
+      class="box-component" 
+      box="position: -2, 0, -7"
+      collision-detector="colliders: #buzAv; target: .box-component; threshold: 4"
+    ></a-entity>
+    <a-assets>
+      <a-asset-item id="buzz" src="./Buzz.glb" crossorigin="anonymous"></a-asset-item>
+    </a-assets>
+    <a-entity id="buzAv" buzz gltf-model="#buzz"
+      shadow="cast: true; receive: false;" position="5 0 -7" rotation="0 -60 0" scale="0.5 0.5 0.5" animation-mixer></a-entity>
+  </a-scene>
+  <script src="post-box-script.js"></script>
+  <script src="keycontrols.js"></script>
+  <script src="video.js"></script>
+</body>
+
+</html>

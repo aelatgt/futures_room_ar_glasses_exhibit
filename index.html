@@ -1,52 +1,51 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-  <script src="box-component.js"></script>
   <script src="./aframe-extras.js"></script>
   <script src="./buzz-component.js"></script>
   <script src="collision-detector.js"></script>
   <style>
-    a-scene, video {
+    a-scene {
       height:100%;
       width:100%;
       object-fit: cover;
       object-position: center;
-    }
-
-    #button-controls {
-      z-index: 1; 
-      position: absolute; 
-    }
-
-    video
-    {
-        transform: rotateY(180deg);
-        -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-        -moz-transform:rotateY(180deg); /* Firefox */
+      background-color: cornflowerblue;
     }
   </style>
 </head>
-
 <body>
-  <video autoplay></video>
   <a-scene>
-    <a-camera look-controls-enabled="false" wasd-controls-enabled="false" position="0 1.5 0"></a-camera>
-    <a-entity 
-      class="box-component" 
-      box="position: -2, 0, -7"
-      collision-detector="colliders: #buzAv; target: .box-component; threshold: 4"
-    ></a-entity>
+    <!-- Description -->
+    <div style="z-index: 1; position: absolute; top: 20px; left: 20px; background-color: lightgray; padding:10px">
+      Explore the power of AR glasses by moving forward and putting on the pair in front of you! 
+    </div>
+
+    <!-- Camera  -->
+    <a-camera look-controls-enabled="true" wasd-controls-enabled="true" position="0 2 2"></a-camera>
+
+    <!-- Glasses  -->
+    <a-assets>
+      <a-asset-item id="glasses" src="./glasses.glb" crossorigin="anonymous"></a-asset-item>
+    </a-assets>
+    <a-entity id="glassesAv" glasses gltf-model="#glasses"
+      shadow="cast: true; receive: false;" position="0 1.95 1.5" rotation="0 180 0" scale="0.2 0.2 0.2" animation-mixer
+      collision-detector="colliders: a-camera; target: #glassesAv; object: #buzAv; threshold: 0.15"></a-entity>
+
+    <!-- Buzz  -->
     <a-assets>
       <a-asset-item id="buzz" src="./Buzz.glb" crossorigin="anonymous"></a-asset-item>
     </a-assets>
     <a-entity id="buzAv" buzz gltf-model="#buzz"
-      shadow="cast: true; receive: false;" position="5 0 -7" rotation="0 -60 0" scale="0.5 0.5 0.5" animation-mixer></a-entity>
+      shadow="cast: true; receive: false;" position="0 0 -7" rotation="0 -30 0" scale="0.5 0.5 0.5" animation-mixer></a-entity>
+    </a-entity>
   </a-scene>
-  <script src="post-box-script.js"></script>
-  <script src="keycontrols.js"></script>
-  <script src="video.js"></script>
 </body>
-
+<script>
+  document.querySelector('#buzAv').setAttribute('visible', false);
+  setTimeout(() => {
+    document.querySelector('.a-enter-vr').classList.add('a-hidden')
+  }, 100); 
+</script>
 </html>

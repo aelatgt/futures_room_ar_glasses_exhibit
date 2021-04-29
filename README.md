@@ -1,7 +1,7 @@
 This repository features an exhibit of AR glasses that allows the user to see an AR Buzz come to life when approaching and putting on the AR glasses. 
 
 How to Run: 
-1. Run this command on the command line while in the root folder: `npm install && npm start`
+1. Run this command on the command line while in the root folder of this project: `npm install && npm start`
 2. A new tab should open in your web broswer. Bypass permissions when prompted. 
 3. Open up the developer console to see output from the collision detection component.
 4. Use the arrows to move the user/camera toward the AR glasses, and watch an AR Buzz come to life! 
